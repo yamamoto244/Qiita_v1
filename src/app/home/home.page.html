@@ -1,14 +1,101 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      Qiita
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+<ion-content class="masters">
+  <!--<div class="row" *ngIf="qiitaItems?.length === 0">-->
+  <!--<ion-card>-->
+  <!--<ion-card-header text-center>-->
+  <!--<ion-icon name="sad"></ion-icon>-->
+  <!--</ion-card-header>-->
+  <!--<ion-card-content text-center>-->
+  <!--一致する記事は、見つかりませんでした。-->
+  <!--</ion-card-content>-->
+  <!--</ion-card>-->
+  <!--</div>-->
+
+  <ion-card class="card-item-page" >
+    <ion-item>
+      <p class="item-date"><ion-icon name="calendar"></ion-icon> 見出しタイトル</p>
+      <ion-avatar>
+        <!--<img src="{{ qiitaItem.user.profile_image_url }}">-->
+      </ion-avatar>
+    </ion-item>
+
+    <ion-card-content>
+      <h2 class="item-title">qiitaItem.title</h2>
+      <p class="item-tags">getTagList(qiitaItem.tags)</p>
+    </ion-card-content>
+
+    <ion-row class="card-row">
+      <ion-col>
+        <div><ion-icon name="heart"></ion-icon> qiitaItem.likes_count</div>
+      </ion-col>
+      <ion-col>
+        <div><ion-icon name="chatboxes"></ion-icon> qiitaItem.comments_count</div>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+  <ion-card class="card-item-page" >
+    <ion-item>
+      <p class="item-date"><ion-icon name="calendar"></ion-icon> 見出しタイトル</p>
+      <ion-avatar>
+        <!--<img src="{{ qiitaItem.user.profile_image_url }}">-->
+      </ion-avatar>
+    </ion-item>
+
+    <ion-card-content>
+      <h2 class="item-title">qiitaItem.title</h2>
+      <p class="item-tags">getTagList(qiitaItem.tags)</p>
+    </ion-card-content>
+
+    <ion-row class="card-row">
+      <ion-col>
+        <div><ion-icon name="heart"></ion-icon> qiitaItem.likes_count</div>
+      </ion-col>
+      <ion-col>
+        <div><ion-icon name="chatboxes"></ion-icon> qiitaItem.comments_count</div>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+  <ion-card class="card-item-page" >
+    <ion-item>
+      <p class="item-date"><ion-icon name="calendar"></ion-icon> 見出しタイトル</p>
+      <ion-avatar>
+        <!--<img src="{{ qiitaItem.user.profile_image_url }}">-->
+      </ion-avatar>
+    </ion-item>
+
+    <ion-card-content>
+      <h2 class="item-title">qiitaItem.title</h2>
+      <p class="item-tags">getTagList(qiitaItem.tags)</p>
+    </ion-card-content>
+
+    <ion-row class="card-row">
+      <ion-col>
+        <div><ion-icon name="heart"></ion-icon> qiitaItem.likes_count</div>
+      </ion-col>
+      <ion-col>
+        <div><ion-icon name="chatboxes"></ion-icon> qiitaItem.comments_count</div>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+  <!--<div class="row" *ngIf="isError === true">-->
+  <!--<ion-card>-->
+  <!--<ion-card-header text-center>-->
+  <!--<ion-icon name="warning" color="warning"></ion-icon>-->
+  <!--</ion-card-header>-->
+  <!--<ion-card-content text-center>-->
+  <!--{{ errerMessage }}-->
+  <!--</ion-card-content>-->
+  <!--</ion-card>-->
+  <!--</div>-->
+
 </ion-content>
