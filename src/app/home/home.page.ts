@@ -1,23 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage {
+  names: any;
+  qiitaItems: Object;
+  constructor (public http: HttpClient) {
 
-  // constructor (public http: HttpClient) {}
-
-  ngOnInit() {
+    this.http.get('https://qiita.com/api/v2/items?page=1&per_page=20')
+        // .pipe(
+        //     map(res => res)
+        // )
+        .subscribe(res => this.qiitaItems = res );
+    // .subscribe(qiitaItems => qiitaItems );
 
   }
-  // articleUrl: string;
-  //
-  // articleUrl = '';
-  //
-  // getArticle() {
-  //
-  // }
+
+  getArticle() {
+    this.http.get('https://qiita.com/api/v2/items?page=1&per_page=5')
+        // .pipe(
+        //     map(res => res)
+        // )
+        .subscribe(res => this.qiitaItems = res);
+        // .subscribe(qiitaItems => qiitaItems );
+   }
+
+  getTagList(tags) {
+     this.names = tags.map(function(element) {
+      return element.name;
+    });
+    return this.names.join(', ');
+  }
 }

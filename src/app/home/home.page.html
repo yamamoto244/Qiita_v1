@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content class="masters">
-  <ion-button>取得</ion-button>
+  <ion-button (click)="getArticle()">取得</ion-button>
   <!--<div class="row" *ngIf="qiitaItems?.length === 0">-->
   <!--<ion-card>-->
   <!--<ion-card-header text-center>-->
@@ -19,71 +19,25 @@
   <!--</ion-card>-->
   <!--</div>-->
 
-  <ion-card class="card-item-page" >
+  <ion-card class="card-item-page" *ngFor="let qiitaItem of qiitaItems">
     <ion-item>
-      <p class="item-date"><ion-icon name="calendar"></ion-icon> 見出しタイトル</p>
+      <p class="item-date"><ion-icon name="calendar"></ion-icon> {{ qiitaItem.created_at | date:"yy/MM/dd HH:mm" }} </p>
       <ion-avatar>
         <!--<img src="{{ qiitaItem.user.profile_image_url }}">-->
       </ion-avatar>
     </ion-item>
 
     <ion-card-content>
-      <h2 class="item-title">qiitaItem.title</h2>
-      <p class="item-tags">getTagList(qiitaItem.tags)</p>
+      <h2 class="item-title">タイトル: {{ qiitaItem.title }}</h2>
+      <p class="item-tags">タグ一覧: {{ getTagList(qiitaItem.tags) }}</p>
     </ion-card-content>
 
     <ion-row class="card-row">
       <ion-col>
-        <div><ion-icon name="heart"></ion-icon> qiitaItem.likes_count</div>
+        <div><ion-icon name="heart"></ion-icon>{{ qiitaItem.likes_count }}</div>
       </ion-col>
       <ion-col>
-        <div><ion-icon name="chatboxes"></ion-icon> qiitaItem.comments_count</div>
-      </ion-col>
-    </ion-row>
-  </ion-card>
-
-  <ion-card class="card-item-page" >
-    <ion-item>
-      <p class="item-date"><ion-icon name="calendar"></ion-icon> 見出しタイトル</p>
-      <ion-avatar>
-        <!--<img src="{{ qiitaItem.user.profile_image_url }}">-->
-      </ion-avatar>
-    </ion-item>
-
-    <ion-card-content>
-      <h2 class="item-title">qiitaItem.title</h2>
-      <p class="item-tags">getTagList(qiitaItem.tags)</p>
-    </ion-card-content>
-
-    <ion-row class="card-row">
-      <ion-col>
-        <div><ion-icon name="heart"></ion-icon> qiitaItem.likes_count</div>
-      </ion-col>
-      <ion-col>
-        <div><ion-icon name="chatboxes"></ion-icon> qiitaItem.comments_count</div>
-      </ion-col>
-    </ion-row>
-  </ion-card>
-
-  <ion-card class="card-item-page" >
-    <ion-item>
-      <p class="item-date"><ion-icon name="calendar"></ion-icon> 見出しタイトル</p>
-      <ion-avatar>
-        <!--<img src="{{ qiitaItem.user.profile_image_url }}">-->
-      </ion-avatar>
-    </ion-item>
-
-    <ion-card-content>
-      <h2 class="item-title">qiitaItem.title</h2>
-      <p class="item-tags">getTagList(qiitaItem.tags)</p>
-    </ion-card-content>
-
-    <ion-row class="card-row">
-      <ion-col>
-        <div><ion-icon name="heart"></ion-icon> qiitaItem.likes_count</div>
-      </ion-col>
-      <ion-col>
-        <div><ion-icon name="chatboxes"></ion-icon> qiitaItem.comments_count</div>
+        <div><ion-icon name="chatboxes"></ion-icon>{{ qiitaItem.comments_count }}</div>
       </ion-col>
     </ion-row>
   </ion-card>
