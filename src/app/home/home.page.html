@@ -6,8 +6,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="masters">
-  <ion-button (click)="getArticle()">取得</ion-button>
+<ion-content class="masters" no-padding>
+  <!--<ion-button (click)="getArticle()">取得</ion-button>-->
+
+  <!-- Default Refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <!--<div class="row" *ngIf="qiitaItems?.length === 0">-->
   <!--<ion-card>-->
   <!--<ion-card-header text-center>-->

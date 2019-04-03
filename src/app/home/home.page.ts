@@ -20,6 +20,19 @@ export class HomePage {
         .subscribe(res => this.qiitaItems = res );
   }
 
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.http.get('https://qiita.com/api/v2/items?page=1&per_page=20')
+        .subscribe(res => {
+          this.qiitaItems = res;
+        });
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
   getArticle() {
     this.http.get('https://qiita.com/api/v2/items?page=1&per_page=5')
     // .pipe(
