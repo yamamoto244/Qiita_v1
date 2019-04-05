@@ -5,6 +5,25 @@ import { IonInfiniteScroll } from '@ionic/angular';
 const itemPerPage = 10; // 1ページあたりに含まれる要素数
 const itemPage = 1; // ページ番号
 
+interface QiitaItem {
+  body: string;
+  coediting: boolean;
+  comments_count: number;
+  created_at: string;
+  group: string;
+  id: string;
+  likes_count: number;
+  page_views_count: number;
+  private: boolean;
+  reactions_count: number;
+  rendered_body: string;
+  tags: string[];
+  title: string;
+  updated_at: string;
+  url: string;
+  user: string[];
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -14,8 +33,8 @@ export class HomePage {
 
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
-  names: any;
-  qiitaItems: Object;
+  names: string[];
+  qiitaItems: QiitaItem[] = [];
   perPage = itemPerPage;
   page = itemPage;
 
@@ -51,7 +70,8 @@ export class HomePage {
 
 
   loadOldData($event) {
-    this.perPage +=  itemPerPage;
+    this.page += itemPage;
+    // this.perPage +=  itemPerPage;
     this.loadData(this.page, this.perPage).then(() => {
       $event.target.complete();
     }, () => {
@@ -59,26 +79,20 @@ export class HomePage {
     });
   }
 
-  private loadData(page: number, perPage: number): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.http.get('https://qiita.com/api/v2/items?page=' + page + '&per_page=' + perPage)
+  private loadData(page: number, perPage: number): Promise<QiitaItem[]> {
+    return new Promise<QiitaItem[]>((resolve, reject) => {
+      this.http.get<QiitaItem[]>('https://qiita.com/api/v2/items?page=' + page + '&per_page=' + perPage)
           .subscribe(  res => {
-        this.qiitaItems = res;
-        resolve();
-      });
+            // if (page > itemPage) {
+            //   this.loadQiitaItems = res;
+            //   this.qiitaItems.push( this.loadQiitaItems );
+            // } else {
+            //   this.qiitaItems = res;
+            // }
+            this.qiitaItems = this.qiitaItems.concat(res);
+            resolve();
+          });
     });
-
-    /*
-        try {
-          this.http.get('https://qiita.com/api/v2/items?page=1&per_page=10')
-              .subscribe( async  res => {
-                this.qiitaItems = await res;
-              });
-          return Promise.resolve();
-        } catch (e) {
-          return Promise.reject(e);
-        }
-        */
   }
 
   getTagList(tags) {
