@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Qiita
+      Qiita記事 一覧
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -25,7 +25,7 @@
   <!--</ion-card>-->
   <!--</div>-->
 
-  <ion-card class="card-item-page" *ngFor="let qiitaItem of qiitaItems">
+  <ion-card class="card-item-page" *ngFor="let qiitaItem of qiitaItems" (click)="onArticleClicked(qiitaItem)">
     <ion-item>
       <p class="item-date"><ion-icon name="calendar"></ion-icon> {{ qiitaItem.created_at | date:"yyyy/MM/dd HH:mm" }} </p>
       <ion-avatar>

@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import { IonInfiniteScroll } from '@ionic/angular';
-import {HttpParamsOptions} from '@angular/common/http/src/params';
+import { HttpClient } from '@angular/common/http';
+import { IonInfiniteScroll, NavController } from '@ionic/angular';
 
 const itemPerPage = 10; // 1ページあたりに含まれる要素数
 const itemPage = 1; // ページ番号
@@ -42,12 +41,8 @@ export class HomePage {
 
   constructor (
       public http: HttpClient,
+      private  nav: NavController,
   ) {
-
-    /*
-    this.http.get('https://qiita.com/api/v2/items?page=1&per_page=10')
-        .subscribe(res => this.qiitaItems = res );
-        */
     this.loadData(this.page, this.perPage);
   }
 
@@ -59,21 +54,11 @@ export class HomePage {
     }, () => {
       $event.target.complete();
     });
-    // console.log('Begin async operation');
-    // this.http.get('https://qiita.com/api/v2/items?page=1&per_page=10')
-    //     .subscribe(res => {
-    //       this.qiitaItems = res;
-    //     });
-    // setTimeout(() => {
-    //   console.log('Async operation has ended');
-    //   event.target.complete();
-    // });
   }
 
 
   loadOldData($event) {
     this.page += itemPage;
-    // this.perPage +=  itemPerPage;
     this.loadData(this.page, this.perPage).then(() => {
       $event.target.complete();
     }, () => {
@@ -86,14 +71,8 @@ export class HomePage {
       // this.http.get<QiitaItem[]>(this.url + page + '&per_page=' + perPage)
       this.http.get<QiitaItem[]>(this.url, {params: {page: `${page}`, per_page: `${perPage}` }})
           .subscribe(  res => {
-            // if (page > itemPage) {
-            //   this.loadQiitaItems = res;
-            //   this.qiitaItems.push( this.loadQiitaItems );
-            // } else {
-            //   this.qiitaItems = res;
-            // }
             this.qiitaItems = this.qiitaItems.concat(res);
-            console.log(res);
+            // console.log(res);
             resolve();
           });
     });
@@ -105,4 +84,10 @@ export class HomePage {
     });
     return this.names.join(', ');
   }
+
+  onArticleClicked(qiitaItem) {
+    console.log(qiitaItem);
+    this.nav.navigateForward(`/article/:slug`);
+  }
+
 }

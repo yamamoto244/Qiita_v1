@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button (click)="back()" ></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Qiita記事 詳細
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="masters" no-padding>
+  <ion-card class="card-item-page">
+    <h1 class="item-title">タイトル: qiitaItem.title </h1>
+    <ion-item>
+      <p class="item-date"><ion-icon name="calendar"></ion-icon> qiitaItem.created_at | date:"yyyy/MM/dd HH:mm" </p>
+    </ion-item>
+
+    <ion-row class="card-row">
+      <ion-col>
+        <div><ion-icon name="heart"></ion-icon> qiitaItem.likes_count </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-item>
+    <p>内容</p>
+    </ion-item>
+  </ion-card>
+
+</ion-content>
