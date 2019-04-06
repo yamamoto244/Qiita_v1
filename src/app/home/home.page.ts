@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { IonInfiniteScroll } from '@ionic/angular';
+import {HttpParamsOptions} from '@angular/common/http/src/params';
 
 const itemPerPage = 10; // 1ページあたりに含まれる要素数
 const itemPage = 1; // ページ番号
@@ -35,8 +36,9 @@ export class HomePage {
 
   names: string[];
   qiitaItems: QiitaItem[] = [];
-  perPage = itemPerPage;
-  page = itemPage;
+  perPage: number = itemPerPage;
+  page: number = itemPage;
+  url = 'https://qiita.com/api/v2/items';
 
   constructor (
       public http: HttpClient,
@@ -81,7 +83,8 @@ export class HomePage {
 
   private loadData(page: number, perPage: number): Promise<QiitaItem[]> {
     return new Promise<QiitaItem[]>((resolve, reject) => {
-      this.http.get<QiitaItem[]>('https://qiita.com/api/v2/items?page=' + page + '&per_page=' + perPage)
+      // this.http.get<QiitaItem[]>(this.url + page + '&per_page=' + perPage)
+      this.http.get<QiitaItem[]>(this.url, {params: {page: `${page}`, per_page: `${perPage}` }})
           .subscribe(  res => {
             // if (page > itemPage) {
             //   this.loadQiitaItems = res;
@@ -90,6 +93,7 @@ export class HomePage {
             //   this.qiitaItems = res;
             // }
             this.qiitaItems = this.qiitaItems.concat(res);
+            console.log(res);
             resolve();
           });
     });
