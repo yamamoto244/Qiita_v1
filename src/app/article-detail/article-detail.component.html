@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons>
-      <ion-back-button (click)="back()" ></ion-back-button>
+      <ion-back-button (click)="goBack($event)" ></ion-back-button>
     </ion-buttons>
     <ion-title>
       Qiita記事 詳細
@@ -11,7 +11,7 @@
 
 <ion-content class="masters" no-padding>
   <ion-card class="card-item-page">
-    <h1 class="item-title">タイトル: qiitaItem.title </h1>
+    <h1 class="item-title">タイトル:qiitaItem.title</h1>
     <ion-item>
       <p class="item-date"><ion-icon name="calendar"></ion-icon> qiitaItem.created_at | date:"yyyy/MM/dd HH:mm" </p>
     </ion-item>
@@ -23,7 +23,7 @@
     </ion-row>
 
     <ion-item>
-    <p>内容</p>
+    <p>slug(id): {{ this.id }}</p>
     </ion-item>
   </ion-card>
 

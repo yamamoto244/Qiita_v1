@@ -41,7 +41,7 @@ export class HomePage {
 
   constructor (
       public http: HttpClient,
-      private  nav: NavController,
+      private nav: NavController,
   ) {
     this.loadData(this.page, this.perPage);
   }
@@ -85,9 +85,9 @@ export class HomePage {
     return this.names.join(', ');
   }
 
-  onArticleClicked(qiitaItem) {
-    console.log(qiitaItem);
-    this.nav.navigateForward(`/article/:slug`);
+  onArticleClicked(qiitaItem: QiitaItem) {
+    // console.log(qiitaItem);
+    this.nav.navigateForward(`/article/${qiitaItem.id}`);
   }
 
 }
