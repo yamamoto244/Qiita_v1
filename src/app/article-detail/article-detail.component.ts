@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
-import {HttpClient} from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 interface QiitaItem {
   body: string;
@@ -23,6 +21,8 @@ interface QiitaItem {
   user: string[];
 }
 
+const apiPath = 'https://qiita.com/api/v2/items/';
+
 @Component({
   selector: 'app-article-detail',
   templateUrl: './article-detail.component.html',
@@ -30,28 +30,28 @@ interface QiitaItem {
 })
 export class ArticleDetailComponent implements OnInit {
 
-  id: string;
-  qiitaItems: QiitaItem[] = [];
-  url = 'https://qiita.com/api/v2/items';
+  qiitaItem: QiitaItem;
+  isLoading = true;
+  notFound = false;
 
   constructor(
-      private  nav: NavController,
       private route: ActivatedRoute,
-      private location: Location,
       public http: HttpClient,
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe( params =>
-            this.id = params['slug']);
-    this.http.get<QiitaItem[]>(this.url, {params: {query: 'id:' + this.id}})
-        .subscribe( res =>
-            this.qiitaItems = res);
-    console.log(this.qiitaItems);
-  }
-
-  private goBack(event) {
-    event.preventDefault();
-    this.location.back();
+    this.route.params.subscribe( params => {
+      const id = params['id'];
+      this.http.get<QiitaItem>(`${apiPath}${id}`).subscribe( res => {
+        this.qiitaItem = res;
+        this.isLoading = false;
+      }, error => {
+        console.log(error);
+        if (error.status === 404) {
+          this.notFound = true;
+        }
+        this.isLoading = false;
+      });
+    });
   }
 }
